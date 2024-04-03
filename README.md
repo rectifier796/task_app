@@ -34,6 +34,9 @@ $ npm install
 ## Command to run docker
 $ docker-compose up
 
+## Api Documentation
+Link To Postman - https://documenter.getpostman.com/view/20102167/2sA35K2LbC
+
 ## Running the app
 
 ```bash
