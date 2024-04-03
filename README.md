@@ -40,7 +40,7 @@ $ docker-compose up
 Link To Postman - https://documenter.getpostman.com/view/20102167/2sA35K2LbC
 
 ## .env file
-```basj
+```bash
 MYSQL_HOST = localhost
 MYSQL_PORT = 3307
 MYSQL_DATABASE = task_application
