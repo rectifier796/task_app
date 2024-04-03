@@ -66,6 +66,9 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Note
+- Every request should contains bearer token.
+- Make request at /token to get jwt token.
 
 ## Test
 
