@@ -31,6 +31,28 @@
 ```bash
 $ npm install
 ```
+## Command to run docker
+```bash
+$ docker-compose up
+```
+
+## Api Documentation
+Link To Postman - https://documenter.getpostman.com/view/20102167/2sA35K2LbC
+
+## .env file
+```bash
+MYSQL_HOST = localhost
+MYSQL_PORT = 3307
+MYSQL_DATABASE = task_application
+MYSQL_USERNAME = user
+MYSQL_PASSWORD = password
+MYSQL_SYNCHRONIZE = true
+
+TOKEN_USERNAME = username
+TOKEN_PASSWORD = password
+
+JWT_SECRET_KEY = sjkiwuofbwefugweucguewitcugeiceicbieocuoihewhvh
+```
 
 ## Running the app
 
@@ -44,6 +66,9 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Note
+- Every request should contains bearer token.
+- Make request at /token to get jwt token.
 
 ## Test
 
