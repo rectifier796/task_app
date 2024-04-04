@@ -13,16 +13,15 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly configService: ConfigService) {
     super({
       jwtFromRequest: (req) => {
-        // console.log(req.headers);
-        // console.log(req.headers.authorization.split(' ')[1]);
-        return req.headers.authorization.split(' ')[1];
+        // token from header
+        return req.headers?.authorization?.split(' ')[1];
       },
       secretOrKey: configService.getOrThrow('JWT_SECRET_KEY'),
     });
   }
 
   async validate(payload: Payload) {
-    // console.log(payload);
+    // returning payload, will be accessible by req.user
     return payload;
   }
 }

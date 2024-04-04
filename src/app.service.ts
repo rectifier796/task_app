@@ -22,6 +22,11 @@ interface MemberDetails {
   teamId: Team;
 }
 
+interface Credentials{
+  username:string;
+  password:string;
+}
+
 @Injectable()
 export class AppService {
   constructor(
@@ -37,24 +42,27 @@ export class AppService {
   ) {}
 
   async getToken() {
-    const payload = {
+    const payload : Credentials = {
       username: this.configService.getOrThrow('TOKEN_USERNAME'),
       password: this.configService.getOrThrow('TOKEN_PASSWORD'),
     };
-    console.log(payload);
+    // console.log(payload);
     return { token: this.jwtService.sign(payload) };
   }
 
+  //Create new Task
   async createTask(taskDetails: TaskDetails) {
     const newTask: Task = this.taskRepository.create(taskDetails);
     return await this.taskRepository.save(newTask);
   }
 
+  // Create new Team
   async createTeam(teamDetails: CreateTeamDto) {
     const team = await this.teamRepository.findOne({
       where: { name: teamDetails.name },
     });
-    // console.log(team);
+    
+    // Check team name already registered
     if (team) {
       throw new BadRequestException('Team Name Already Registered');
     }
@@ -62,6 +70,7 @@ export class AppService {
     return await this.teamRepository.save(newTeam);
   }
 
+  // Create Team Member, Email should be unique
   async createMember(memberDetails: MemberDto) {
     const member = await this.memberRepository.findOne({
       where: { email: memberDetails.email },
@@ -77,6 +86,7 @@ export class AppService {
     return await this.memberRepository.find();
   }
 
+  // Add member to a team. If team not registered, creates a new team with given name
   async addMemberToTeam(memberDetails: AddMemberDto) {
     let team: Team;
     team = await this.teamRepository.findOne({
@@ -91,6 +101,7 @@ export class AppService {
     }
     console.log(memberDetails);
 
+    // checks whether given team member are registered or not. If not, creates a new record for new members
     const updatedMemberDetails = memberDetails.member.map(async (e) => {
       const data = await this.memberRepository.findOne({
         where: { email: e.email },
@@ -114,6 +125,7 @@ export class AppService {
     return await this.teamRepository.save(team);
   }
 
+  //Assign a task to one member
   async assignTaskToMember(assignmentDetails: AssignTaskDto) {
     const { taskId, memberId } = assignmentDetails;
 

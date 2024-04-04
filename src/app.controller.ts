@@ -11,6 +11,7 @@ export class AppController{
         private readonly appService : AppService
     ){}
 
+    // Endpoint to get jwt token
     @Get('/token')
     async getToken(){
         return this.appService.getToken();
@@ -22,6 +23,7 @@ export class AppController{
         // console.log(createTaskDto);
         const {description, dueDate, status} = createTaskDto;
 
+        // dueDate should be greater than current date
         if(dueDate<=new Date)
         throw new BadRequestException("Expired Due Date");
     
@@ -46,6 +48,7 @@ export class AppController{
         // console.log(addMemberDto);
         let {member} = addMemberDto;
 
+        //Should have atleast one member to add
         if(member.length==0)
         throw new BadRequestException("Should have atleast 1 member");
 
@@ -76,6 +79,8 @@ export class AppController{
         return this.appService.updateTask(id,updateTaskDto);
     }
 
+
+    // Endpoint to test jwt token
     @UseGuards(AuthGuard('jwt'))
     @Get('/test')
     async testing(@Req() req:Request){
